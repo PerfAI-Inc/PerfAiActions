@@ -1,0 +1,49 @@
+name: API Privacy Test
+on:
+  push:
+    branches: [ "main" ]
+  # schedule:
+  #    - cron: '*/5 * * * *'
+            
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+   # runs-on: self-hosted
+    steps:
+      - name: PerfAI APIPrivacy Test
+        uses: PerfAI-Inc/perfai-api-privacy@v0.0.1
+        with:
+           perfai-username: ${{ secrets.PERFAI_USERNAME }}
+           perfai-password: ${{ secrets.PERFAI_PASSWORD }}
+           perfai-api-id: "66fdaa4a341e0e39e23a3251"
+           perfai-api-name: "Notification"
+           perfai-wait-for-completion: "true"
+
+
+   ### Email Alert Notifcation ###
+      - name: Send mail
+        if: failure()
+        uses: dawidd6/action-send-mail@v3.9.0
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "🚨 Build Failure: ${{ github.repository }} #${{ github.run_number }} 🚨"
+          body: |
+             Hi,
+
+             Unfortunately, the build for the project **${{ github.repository }}** has failed. Below are the details:
+
+             **Build Information:**
+               - Repository:  ${{ github.repository }}
+               - Branch:  ${{ github.ref_name }}
+               - Commit SHA:  ${{ github.sha }}
+               - Commit Message:  ${{ github.event.head_commit.message }}
+
+             **Failure Summary:*
+               - Please review the logs for more details: [View Logs] 
+                   ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          to: afrose@perfai.ai
+          from: PerfAI       
