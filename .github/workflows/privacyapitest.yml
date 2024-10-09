@@ -8,8 +8,8 @@ on:
             
 jobs:
   build:
-   # runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+   # runs-on: self-hosted
     steps:
       - name: PerfAI APIPrivacy Test
         uses: PerfAI-Inc/perfai-api-privacy@v0.0.1
