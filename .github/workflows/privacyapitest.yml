@@ -16,8 +16,8 @@ jobs:
         with:
            perfai-username: ${{ secrets.PERFAI_USERNAME }}
            perfai-password: ${{ secrets.PERFAI_PASSWORD }}
-           perfai-api-id: "6706c956b779b5a9d759a39f"
-           perfai-api-name: "pvt isuues"
+           perfai-api-id: "671698d29cf8cde988310509"
+           perfai-api-name: "sd nsd"
            perfai-wait-for-completion: "true"
 
 
